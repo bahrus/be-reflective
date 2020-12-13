@@ -25,7 +25,7 @@ iframe:not([src]){
 <iframe name="myIframe"></iframe>
 ```
 
-Then, thanks to the style, the iframe won't display, until you click on the hyperlink.  Now, the hyperlink will dutifully set the src attribute of the iframe, and and the iframe will start loading the page, and the style will no longer be applicable, so the iframe becomes visible.  Beautiful!
+Then, thanks to the style, the iframe won't display, until you click on the hyperlink.  Now, the hyperlink will dutifully set the src attribute of the iframe, and the iframe will start loading the page, and the style will no longer be applicable, so the iframe becomes visible.  Beautiful!
 
 Oh wait.  The browser doesn't set the src *attribute* when clicking on the hyperlink.  No, it sets the src "property" of iframe, and the iframe doesn't reflect that value to an attribute (or [pseudo class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)).
 
@@ -56,7 +56,7 @@ For example, to apply to all DOM elements:
 
 To be precise, "be-reflective" only wants to apply to sections of a web application where there is "buy-in" to be reflective, so a separate instance is required in each ShadowDOM realm.  And that includes outside any ShadowDOM realm.
 
-For those holdouts who see the importance of sticking to data-* attributes, the target can use data-be as the prefix, rather than just be-
+For those holdouts who value sticking to data-* attributes, the target can use data-be- as the prefix, rather than just be-
 
 There are some props (like acceptChars, novalidate properties of the form element) that makes it not so obvious to the captcha-challenged where, if any, a "dash" should go when translating between the property and attribute.  By default, be-reflective assumes the attribute is the same as the property (attributes are case insensitive), but the be-reflective component supports an option to use lisp-case:
 
