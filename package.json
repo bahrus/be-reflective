@@ -12,6 +12,9 @@
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "xtal-decor": "0.0.20"
+  },
   "bugs": {
     "url": "https://github.com/bahrus/be-reflective/issues"
   },

@@ -8,7 +8,7 @@ Suppose you want a hyperlink to open an iframe.  The platform supports this out 
 <iframe name="myIframe"></iframe>
 ```
 
-But here's the problem:  you don't want the iframe to display until the hyperlink is clicked on.  But without JavaScript.
+But here's the rub:  you don't want the iframe to display until the hyperlink is clicked on.  But without JavaScript.
 
 No problem, you might be thinking.  Just do this:
 
@@ -44,15 +44,31 @@ iframe:not([src]){
 <iframe name="myIframe" be-reflective></iframe>
 ```
 
-The be-reflective will attach a proxy around the iframe, and monitor for the src being set, and when it is, it will reflect the value to the src attribute.
+The (local instance of the ) be-reflective web component will attach a proxy around the iframe, and monitor for the src being set, and when it is, it will reflect the value to the src attribute.  It will also set the attribute it present once the web component is loaded.
 
-And of course, this component can be used on any element (native or custom), any prop.
+This component can be used in combination with any element (native or custom), any prop.
 
-There are some props (like acceptChars, novalidate) where it isn't obvious to the captcha-challenged where, if any, the "dash" should go.
-
-This can be specified thusly:
+For example, to apply to all DOM elements:
 
 ```html
-<be-reflective upgrade=form if-wants-to-be=reflective props='[{"accept-charset": "accept-charset"]'></be-reflective>
+<be-reflective upgrade=* if-wants-to-be=reflective props='["diabled"]'></be-reflective>
 ```
+
+To be precise, "be-reflective" only wants to apply to sections of a web application where there is "buy-in" to be reflective, so a separate instance is required in each ShadowDOM realm.  And that includes outside any ShadowDOM realm.
+
+For those holdouts who see the importance of sticking to data-* attributes, the target can use data-be as the prefix, rather than just be-
+
+There are some props (like acceptChars, novalidate properties of the form element) that makes it not so obvious to the captcha-challenged where, if any, a "dash" should go when translating between the property and attribute.  By default, be-reflective assumes the attribute is the same as the property (attributes are case insensitive), but the be-reflective component supports an option to use lisp-case:
+
+```html
+<be-reflective upgrade=form if-wants-to-be=reflective use-lisp-case props='[{"acceptCharset"]'></be-reflective>
+```
+
+If you have a mix of naming conventions, then spelling it out is necessary:
+
+```html
+<be-reflective upgrade=form if-wants-to-be=reflective props='[{"acceptCharset": "accept-charset"},{"noValidate","novalidate"}]'></be-reflective>
+```
+
+
 
