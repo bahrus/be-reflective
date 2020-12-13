@@ -53,6 +53,6 @@ There are some props (like acceptChars, novalidate) where it isn't obvious to th
 This can be specified thusly:
 
 ```html
-<be-reflective upgrade=form if-wants-to-be=reflective props='[{"acceptChars": "accept-chars"]'></be-reflective>
+<be-reflective upgrade=form if-wants-to-be=reflective props='[{"accept-charset": "accept-charset"]'></be-reflective>
 ```
 
