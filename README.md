@@ -1,5 +1,7 @@
 # be-reflective [TODO]
 
+**NB*  This seems to be beyond the capabilities of the browser (maybe by design).  
+
 Suppose you want a hyperlink to open an iframe.  The platform supports this out of the box, no scripting required:
 
 ```html
@@ -39,7 +41,7 @@ iframe:not([src]){
 }
 </style>
 
-<a href="//mydomain.com/myPath" target="myIframeProxy">My Link</a>
+<a href="//mydomain.com/myPath" be-target-reflective target="myIframeProxy">My Link</a>
 
 <proxy-props name=myIframeProxy for=be-reflective></proxy-props>
 <iframe name="myIframe" be-reflective></iframe>
