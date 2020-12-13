@@ -25,7 +25,7 @@ iframe:not([src]){
 <iframe name="myIframe"></iframe>
 ```
 
-Then, thanks to the style, the iframe won't display, until you click on the hyperlink.  Now, the hyperlink will dutifully set the src attribute of the iframe, and start loading the page, and the style will no longer be applicable, so the iframe becomes visible.  Beautiful!
+Then, thanks to the style, the iframe won't display, until you click on the hyperlink.  Now, the hyperlink will dutifully set the src attribute of the iframe, and and the iframe will start loading the page, and the style will no longer be applicable, so the iframe becomes visible.  Beautiful!
 
 Oh wait.  The browser doesn't set the src *attribute* when clicking on the hyperlink.  No, it sets the src "property" of iframe, and the iframe doesn't reflect that value to an attribute (or [pseudo class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)).
 
