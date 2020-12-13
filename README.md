@@ -1,4 +1,4 @@
-# be-reflective
+# be-reflective [TODO]
 
 Suppose you want a hyperlink to open an iframe.  The platform supports this out of the box, no scripting required:
 
@@ -44,7 +44,7 @@ iframe:not([src]){
 <iframe name="myIframe" be-reflective></iframe>
 ```
 
-The (local instance of the ) be-reflective web component will attach a proxy around the iframe, and monitor for the src being set, and when it is, it will reflect the value to the src attribute.  It will also set the attribute it present once the web component is loaded.
+The (local instance of the) be-reflective web component will attach a proxy around the iframe, and monitor for the src being set, and when it is, it will reflect the value to the src attribute.  It will also set the attribute if the property is already set once the web component is loaded.
 
 This component can be used in combination with any element (native or custom), any prop.
 
