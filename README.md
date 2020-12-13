@@ -39,8 +39,9 @@ iframe:not([src]){
 }
 </style>
 
-<a href="//mydomain.com/myPath" target="myIframe">My Link</a>
+<a href="//mydomain.com/myPath" target="myIframeProxy">My Link</a>
 
+<proxy-props name=myIframeProxy for=be-reflective></proxy-props>
 <iframe name="myIframe" be-reflective></iframe>
 ```
 
