@@ -1,77 +1,21 @@
 # be-reflective [TODO]
 
-**NB**  This seems to be beyond the capabilities of the browser (maybe by design).  
+One decision web component designers need to make when developing a component is which properties should "reflect" ao attributes.  Doing so may impose a light performance penalty, but it does in many cases make it easier to base styling decisions on state changes.
 
-Suppose you want a hyperlink to open an iframe.  The platform supports this out of the box, no scripting required:
+As a consumer of a third party web component, what if your needs happen to not be met by the choices made by the third party component.
 
-```html
-<a href="//mydomain.com/myPath" target="myIframe">My Link</a>
+Options to consider first, perhaps are:
 
-<iframe name="myIframe"></iframe>
-```
+1.  Raise an issue or pull request to enhance the component so that it reflects.
+2.  Extend the component and override the property setter behavior (or configuration) so the property does reflect.
 
-But here's the rub:  you don't want the iframe to display until the hyperlink is clicked on.  But without JavaScript.
+If the options above are insufficient, then this component could be of help.
 
-No problem, you might be thinking.  Just do this:
-
+Another scenario -- if you are debugging a web component, it might be easier to insert this component temporarily due to the nice debugging features browsers support for changing attributes (flashing when they change).
 
 ```html
-<style>
-iframe:not([src]){
-    display:none;
-}
-</style>
+<be-reflective upgrade=third-party-component if-wants-to-be=reflective props='["propA"]'></be-reflective>
 
-<a href="//mydomain.com/myPath" target="myIframe">My Link</a>
-
-<iframe name="myIframe"></iframe>
+<third-party-component be-reflective></third-party-component>
 ```
-
-Then, thanks to the style, the iframe won't display, until you click on the hyperlink.  Now, the hyperlink will dutifully set the src attribute of the iframe, and the iframe will start loading the page, and the style will no longer be applicable, so the iframe becomes visible.  Beautiful!
-
-Oh wait.  The browser doesn't set the src *attribute* when clicking on the hyperlink.  No, it sets the src "property" of iframe, and the iframe doesn't reflect that value to an attribute (or [pseudo class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)).
-
-Okay, the platform doesn't support that.  But with this web component (with a little JS lurking behind the scenes), this can be done:
-
-```html
-<be-reflective upgrade=iframe if-wants-to-be=reflective props='["src"]'></be-reflective>
-<style>
-iframe:not([src]){
-    display:none;
-}
-</style>
-
-<a href="//mydomain.com/myPath" be-target-reflective target="myIframeProxy">My Link</a>
-
-<proxy-props name=myIframeProxy for=be-reflective></proxy-props>
-<iframe name="myIframe" be-reflective></iframe>
-```
-
-The (local instance of the) be-reflective web component will attach a proxy around the iframe, and monitor for the src being set, and when it is, it will reflect the value to the src attribute.  It will also set the attribute if the property is already set once the web component is loaded.
-
-This component can be used in combination with any element (native or custom), any prop.
-
-For example, to apply to all DOM elements:
-
-```html
-<be-reflective upgrade=* if-wants-to-be=reflective props='["diabled"]'></be-reflective>
-```
-
-To be precise, "be-reflective" only wants to apply to sections of a web application where there is "buy-in" to be reflective, so a separate instance is required in each ShadowDOM realm.  And that includes outside any ShadowDOM realm.
-
-For those holdouts who value sticking to data-* attributes, the target can use data-be- as the prefix, rather than just be-
-
-There are some props (like acceptChars, novalidate properties of the form element) that makes it not so obvious to the captcha-challenged where, if any, a "dash" should go when translating between the property and attribute.  By default, be-reflective assumes the attribute is the same as the property (attributes are case insensitive), but the be-reflective component supports an option to use lisp-case:
-
-```html
-<be-reflective upgrade=form if-wants-to-be=reflective use-lisp-case props='[{"acceptCharset"]'></be-reflective>
-```
-
-If you have a mix of naming conventions, then spelling it out is necessary:
-
-```html
-<be-reflective upgrade=form if-wants-to-be=reflective props='[{"acceptCharset": "accept-charset"},{"noValidate","novalidate"}]'></be-reflective>
-```
-
-
 
