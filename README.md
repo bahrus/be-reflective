@@ -1,6 +1,6 @@
 # be-reflective [TODO]
 
-**NB*  This seems to be beyond the capabilities of the browser (maybe by design).  
+**NB**  This seems to be beyond the capabilities of the browser (maybe by design).  
 
 Suppose you want a hyperlink to open an iframe.  The platform supports this out of the box, no scripting required:
 
