@@ -1,35 +1,32 @@
-import {XtalDecor, XtalDecorCore} from 'xtal-decor/xtal-decor.js';
-import {CE} from 'trans-render/lib/CE.js';
-import {BeReflectiveProps} from './types';
-
-const ce = new CE<XtalDecorCore<HTMLElement> & BeReflectiveProps>({
-    config:{
+import { XtalDecor } from 'xtal-decor/xtal-decor.js';
+import { CE } from 'trans-render/lib/CE.js';
+const ce = new CE({
+    config: {
         tagName: 'be-reflective',
-        propDefaults:{
+        propDefaults: {
             upgrade: '*',
             ifWantsToBe: 'reflective',
             props: [],
-            virtualProps:[],
+            virtualProps: [],
         }
     },
-    complexPropDefaults:{
-        actions:[
-            ({self, props, target}: any) => {
-                for(const prop of props){
+    complexPropDefaults: {
+        actions: [
+            ({ self, props, target }) => {
+                for (const prop of props) {
                     const proto = target.constructor.prototype;
-                    const newProp = Object.getOwnPropertyDescriptor(proto, prop)!;
-                    const setter = newProp.set!;
-                    const getter = newProp.get!;
+                    const newProp = Object.getOwnPropertyDescriptor(proto, prop);
+                    const setter = newProp.set;
+                    const getter = newProp.get;
                     Object.defineProperty(target, prop, {
-                        get(){
+                        get() {
                             const tempGetter = getter.bind(this);
                             return tempGetter();
                         },
-                        set(nv){
+                        set(nv) {
                             self.dataset[prop] = nv.toString();
                             const tempSetter = setter.bind(this);
                             tempSetter(nv);
-                            
                         },
                         enumerable: true,
                         configurable: true,
@@ -37,12 +34,11 @@ const ce = new CE<XtalDecorCore<HTMLElement> & BeReflectiveProps>({
                 }
             }
         ],
-        init:(self: HTMLElement) => {
+        init: (self) => {
             console.log('in init');
         },
-        on:{},
+        on: {},
     },
     superclass: XtalDecor,
 });
-
 document.head.appendChild(document.createElement('be-reflective'));

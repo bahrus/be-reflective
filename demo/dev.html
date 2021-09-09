@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <button be-reflective='{"props":["disabled"]}'>test button</button> -->
+    <a href="//cnn.com" target=testIframe>My Link</a>
+    <iframe name=testIframe be-reflective='{"props":["src"]}'></iframe>
+    <script type=importmap>
+        {
+            "imports":{
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "xtal-decor/": "../node_modules/xtal-decor/",
+                "css-observe/": "../node_modules/css-observe/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-reflective.js';
+    </script>
+</body>
+</html>
