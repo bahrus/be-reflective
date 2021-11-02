@@ -14,7 +14,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "xtal-decor": "0.0.42"
+    "be-decorated": "0.0.37"
   },
   "devDependencies": {
     "xtal-test": "0.0.51"
