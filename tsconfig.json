@@ -9,7 +9,7 @@
 		"watch": true
 	},
 	"files":[
-		"be-reflective.ts"
+		"be-reflective2.ts"
 	],
 	"exclude":[
 		"build",
