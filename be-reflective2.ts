@@ -35,6 +35,29 @@ export class BeReflectiveController implements BeReflectiveActions{
             }
             if(maxDelay){
                 this.doPoll(propMap, propKey);
+            }else{
+                let proto = this;
+                let prop: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(proto, propKey);
+                while(proto && !prop){
+                    proto = Object.getPrototypeOf(proto);
+                    prop = Object.getOwnPropertyDescriptor(proto, propKey);
+                }
+                if(prop === undefined){
+                    throw {element: this, propKey, message: "Can't find property."};
+                }
+                const setter = prop.set!.bind(this);
+                const getter = prop.get!.bind(this);
+                Object.defineProperty(this, propKey, {
+                    get(){
+                        return getter();
+                    },
+                    set(nv){
+                        setter(nv);
+                        this.setAttr(this.#target, nv, reflectTo);
+                    },
+                    enumerable: true,
+                    configurable: true,
+                });     
             }
         }
     }
@@ -52,8 +75,17 @@ export class BeReflectiveController implements BeReflectiveActions{
     }
 
     setAttr(self: Element, val: any, reflectTo: string){
-
-    }
+        if(reflectTo[0] === '.'){
+            const verb = val ? 'add' : 'remove';
+            self.classList[verb](reflectTo.slice(1));
+            
+        }else if(reflectTo.substr(0, 2) === '::'){
+            const verb = val ? 'add' : 'remove';
+            self.part[verb](reflectTo.slice(2));
+        }else{
+            const verb = val ? 'setAttribute' : 'removeAttribute';
+            self[verb](reflectTo, '');
+        }
 }
 
 export interface BeReflectiveController extends BeReflectiveProps{
