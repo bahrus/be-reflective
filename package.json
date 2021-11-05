@@ -1,6 +1,6 @@
 {
   "name": "be-reflective",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Suppose you want a hyperlink to open an iframe.  The platform supports this out of the box, no scripting required:",
   "main": "index.js",
   "scripts": {
