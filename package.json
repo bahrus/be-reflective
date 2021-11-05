@@ -18,7 +18,7 @@
     "be-hive": "0.0.8"
   },
   "devDependencies": {
-    "xtal-test": "0.0.51",
+    "xtal-test": "0.0.52",
     "xtal-element": "0.0.452",
     "trans-render": "0.0.430"
   },
