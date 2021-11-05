@@ -1,5 +1,6 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeReflectiveProps, BeReflectiveActions, BeReflectiveVirtualProps, PropToAttrMapping} from './types';
+import {register} from "be-hive/register.js";
 
 export class BeReflectiveController implements BeReflectiveActions{
     #target!: Element;
@@ -112,5 +113,7 @@ define<BeReflectiveProps & BeDecoratedProps<BeReflectiveProps, BeReflectiveActio
         }
     }
 });
+
+register(ifWantsToBe, upgrade, tagName);
 
 

@@ -14,10 +14,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "be-decorated": "0.0.37"
+    "be-decorated": "0.0.37",
+    "be-hive": "0.0.8"
   },
   "devDependencies": {
-    "xtal-test": "0.0.51"
+    "xtal-test": "0.0.51",
+    "xtal-element": "0.0.452",
+    "trans-render": "0.0.430"
   },
   "bugs": {
     "url": "https://github.com/bahrus/be-reflective/issues"

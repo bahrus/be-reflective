@@ -7,21 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- <button be-reflective='{"props":["disabled"]}'>test button</button> -->
     <a href="https://onsen.io" target=testIframe>My Link</a>
-    <iframe name=testIframe be-reflectivex='{"props":{"src": {"poll": 100}}}'></iframe>
+    <iframe name=testIframe be-reflective='{
+        "src": {"maxDelay": 100, "reflectTo": "data-src"}
+    }'></iframe>
     <script type=importmap>
         {
             "imports":{
                 "trans-render/": "../node_modules/trans-render/",
                 "xtal-element/": "../node_modules/xtal-element/",
-                "xtal-decor/": "../node_modules/xtal-decor/",
-                "css-observe/": "../node_modules/css-observe/"
+                "be-decorated/": "../node_modules/be-decorated/"
             }
         }
     </script>
     <script type=module>
-        import '../be-reflective.js';
+        import '../be-reflective2.js';
     </script>
 </body>
 </html>
