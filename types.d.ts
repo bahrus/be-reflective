@@ -9,10 +9,11 @@ export interface BeReflectiveProps extends BeReflectiveVirtualProps{
 
 export interface BeReflectiveActions{
     intro(proxy: Element & BeReflectiveVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
+    onMap(self: this): void;
 }
 
 export interface PropToAttrMapping{
     reflectTo: string,
     maxDelay?: number,
-    once: boolean,
+    once?: boolean,
 }
