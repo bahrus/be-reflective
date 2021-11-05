@@ -86,11 +86,10 @@ export class BeReflectiveController implements BeReflectiveActions{
             const verb = val ? 'setAttribute' : 'removeAttribute';
             self[verb](reflectTo, '');
         }
+    }
 }
 
-export interface BeReflectiveController extends BeReflectiveProps{
-
-}
+export interface BeReflectiveController extends BeReflectiveProps{}
 
 const tagName = 'be-reflective';
 const ifWantsToBe = 'reflective';
@@ -107,7 +106,9 @@ define<BeReflectiveProps & BeDecoratedProps<BeReflectiveProps, BeReflectiveActio
             intro: 'intro',
         },
         actions: {
-            intro: 'intro',
+            onMap: {
+                ifAllOf: ['map'],
+            }
         }
     }
 });

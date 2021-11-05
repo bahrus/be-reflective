@@ -101,7 +101,9 @@ define({
             intro: 'intro',
         },
         actions: {
-            intro: 'intro',
+            onMap: {
+                ifAllOf: ['map'],
+            }
         }
     }
 });
