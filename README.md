@@ -1,4 +1,4 @@
-# be-reflective [TODO]
+# be-reflective
 
 ```html
 <third-party-custom-element be-reflective='{
