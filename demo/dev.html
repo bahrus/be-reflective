@@ -8,6 +8,9 @@
 </head>
 <body>
     <a href="https://onsen.io" target=testIframe>My Link</a>
+    <input be-reflective='{
+        "value": {"maxDelay": 100, "reflectTo": "data-val"}
+    }'>
     <iframe name=testIframe be-reflective='{
         "src": {"maxDelay": 100, "reflectTo": "data-src"}
     }'></iframe>

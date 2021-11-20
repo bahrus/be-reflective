@@ -36,7 +36,7 @@ export class BeReflectiveController {
                 this.doPoll(propMap, propKey);
             }
             else {
-                let proto = this;
+                let proto = this.#target;
                 let prop = Object.getOwnPropertyDescriptor(proto, propKey);
                 while (proto && !prop) {
                     proto = Object.getPrototypeOf(proto);
@@ -84,7 +84,7 @@ export class BeReflectiveController {
         }
         else {
             const verb = val ? 'setAttribute' : 'removeAttribute';
-            self[verb](reflectTo, '');
+            self[verb](reflectTo, val);
         }
     }
 }

@@ -37,7 +37,7 @@ export class BeReflectiveController implements BeReflectiveActions{
             if(maxDelay){
                 this.doPoll(propMap, propKey);
             }else{
-                let proto = this;
+                let proto = this.#target;
                 let prop: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(proto, propKey);
                 while(proto && !prop){
                     proto = Object.getPrototypeOf(proto);
@@ -85,7 +85,7 @@ export class BeReflectiveController implements BeReflectiveActions{
             self.part[verb](reflectTo.slice(2));
         }else{
             const verb = val ? 'setAttribute' : 'removeAttribute';
-            self[verb](reflectTo, '');
+            self[verb](reflectTo, val);
         }
     }
 }
