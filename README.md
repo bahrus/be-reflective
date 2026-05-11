@@ -1,25 +1,33 @@
-# be-reflective
 
-```html
-<third-party-custom-element be-reflective='{
-    "prop1": "some-attr-1",
-    "prop2": ".some-class-2",
-    "prop3": "::some-part-3"
-}'></third-party-custom-element>
+
+
+## Viewing Demos Locally
+
+1. Install git
+2. Fork/clone this repo
+3. Install node.js
+4. Open command window to folder where you cloned this repo
+5. > git submodule update --init --recursive
+6. > npm install
+7. > npm run serve
+8. Open http://localhost:8000/ in a modern browser
+
+## Running Tests
+
+```
+> npm run test
 ```
 
-For classes and parts, add / remove class / part based on truthiness of prop.
+## Using from ESM Module:
 
-```html
-<a href="//mydomain.com/myPath" target="myIframe">My Link</a>
-
-<iframe name="myIframe" be-reflective='{
-    "src": {
-        "maxDelay": 100,
-        "reflectTo": "data-src"
-    }
-}'></iframe>
+```JavaScript
+import 'be-reflective/be-reflective.js';
 ```
 
-Will add a "poll" to check value of src every 100ms (sigh).
+## Using from CDN:
 
+```html
+<script type=module crossorigin=anonymous>
+    import 'https://esm.sh/be-reflective';
+</script>
+```
