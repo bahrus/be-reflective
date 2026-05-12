@@ -1,5 +1,10 @@
 # be-reflective
 
+<!-- [![Playwright Tests](https://github.com/bahrus/be-reflective/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-reflective/actions/workflows/CI.yml) -->
+[![NPM version](https://badge.fury.io/js/be-reflective.png)](http://badge.fury.io/js/be-reflective)
+[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-reflective?style=for-the-badge)](https://bundlephobia.com/result?p=be-reflective)
+<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-reflective?compression=gzip">
+
 This package contains the world's second custom element feature (following closely on the related https://github.com/bahrus/truth-sourcer which provides a pluggable feature for synchronizing attributes with properties in a kind of two-way binding mechanism).
 
 This feature provides a pluggable way of reflecting properties.
