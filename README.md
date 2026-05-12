@@ -25,6 +25,8 @@ class MyElement extends HTMLElement {
      **/
     propagator = new EventTarget();
 
+    #internals;
+
 
     static supportedFeatures = {
         reflector: {
@@ -89,6 +91,8 @@ class MyElement extends HTMLElement {
      * @type {EventTarget}
      **/
     propagator = new EventTarget();
+
+    #internals;
 
 
     static supportedFeatures = {
