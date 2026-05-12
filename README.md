@@ -191,7 +191,7 @@ We can also specify wildcard matching:
 </style>
 ```
 
-We adopt the same symbol for the wildcard matching is is used for [attribute selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
+We adopt the same symbols for the wildcard matching as is used for [attribute selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
 
 ### Numbers
 
