@@ -70,6 +70,15 @@
     </script>
 </head>
 <body>
-    <my-element></my-element>
+    <my-element>Hello</my-element>
+    <style>
+        my-element:state(disabled) {
+            opacity: 0.5;
+        }
+
+        my-element:state(name) {
+            border: 2px solid green;
+        }
+    </style>
 </body>
 </html>
