@@ -6,8 +6,18 @@ This feature provides a pluggable way of reflecting properties.
 
 ## Using this feature
 
+The spawn definition can be either **synchronous** (eager) or **asynchronous** (lazy-loaded). The tradeoff:
+
+- **Synchronous** — the Reflector is available immediately, so custom states are reflected from the very first property change. No flash of unstyled state.
+- **Asynchronous** — smaller initial bundle. The implementation loads on first access. There's a brief window where states aren't reflected until the import resolves. For most UI this is invisible since custom states typically drive non-critical styling.
+
+Both approaches are shown below. Pick whichever fits your priorities.
+
+### Synchronous (immediate reflection)
+
 ```JavaScript
 import 'assign-gingerly/object-extension.js';
+import {Reflector} from 'be-reflective/Reflector.js';
 
 class MyElement extends HTMLElement {
     /**
@@ -18,7 +28,7 @@ class MyElement extends HTMLElement {
 
     static supportedFeatures = {
         reflector: {
-            fallbackSpawn: async () => (await import('be-reflective/Reflector.js')).Reflector,
+            fallbackSpawn: Reflector,
             getSharedContext(instance) {
                 return { internals: instance.#internals };
             }
@@ -61,7 +71,72 @@ class MyElement extends HTMLElement {
 }
 
 customElements.assignFeatures(MyElement, {
-    reflector: { spawn: async () => (await import('be-reflective/Reflector.js')).Reflector }
+    reflector: { spawn: Reflector }
+});
+
+customElements.define('my-element', MyElement);
+```
+
+### Asynchronous (smaller initial footprint)
+
+Uses `ReflectorLazy` which checks whether `--custom-state-exports` is actually declared in CSS before loading the full implementation. If no rules are present, the feature stays inert with zero overhead.
+
+```JavaScript
+import 'assign-gingerly/object-extension.js';
+
+class MyElement extends HTMLElement {
+    /**
+     * @type {EventTarget}
+     **/
+    propagator = new EventTarget();
+
+
+    static supportedFeatures = {
+        reflector: {
+            fallbackSpawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy,
+            getSharedContext(instance) {
+                return { internals: instance.#internals };
+            }
+        }
+    };
+
+    /**
+     * @type {string}
+     **/
+    #name = '';
+
+    get name(){
+        return this.#name
+    }
+
+    set name(nv){
+        this.#name = nv;
+        this.propagator.dispatchEvent(new Event('name'));
+    }
+
+    /** @type {boolean} */
+    #disabled = false;
+
+    get disabled() {
+        return this.#disabled;
+    }
+
+    set disabled(nv) {
+        this.#disabled = nv;
+        this.propagator.dispatchEvent(new Event('disabled'));
+    }
+
+    constructor(){
+        super();
+        this.#internals = this.attachInternals();
+        this.reflector.hostPropagator = this.propagator;
+    }
+
+
+}
+
+customElements.assignFeatures(MyElement, {
+    reflector: { spawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy }
 });
 
 customElements.define('my-element', MyElement);
