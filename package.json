@@ -1,0 +1,27 @@
+{
+  "name": "be-reflective",
+  "version": "0.0.0",
+  "description": "Custom element feature for reflecting properties to custom states via CSS declarations",
+  "type": "module",
+  "main": "Reflector.js",
+  "scripts": {
+    "serve": "node ./node_modules/spa-ssi/serve.js",
+    "test": "playwright test",
+    "update": "ncu -u && npm install",
+    "safari": "npx playwright wk http://localhost:8000",
+    "chrome": "npx playwright cr http://localhost:8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahrus/be-reflective.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "assign-gingerly": "0.0.39",
+    "@playwright/test": "1.60.0",
+    "spa-ssi": "0.0.27"
+  },
+  "dependencies": {
+  }
+}

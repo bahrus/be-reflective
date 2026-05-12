@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Reflector Feature</title>
+    <!-- #include virtual="/imports.html" -->
+    <style>
+        my-element {
+            --custom-state-exports: name, disabled;
+        }
+    </style>
+    <script type=module>
+        import 'assign-gingerly/assignFeatures.js';
+        import {Reflector} from 'be-reflective/Reflector.js';
+
+        class MyElement extends HTMLElement {
+            /**
+             * @type {EventTarget}
+             */
+            propagator = new EventTarget();
+
+            #internals;
+
+            static supportedFeatures = {
+                reflector: {
+                    fallbackSpawn: Reflector,
+                    getSharedContext(instance) {
+                        return { internals: instance.#internals };
+                    }
+                }
+            };
+
+            /** @type {string} */
+            #name = '';
+
+            get name() {
+                return this.#name;
+            }
+
+            set name(nv) {
+                this.#name = nv;
+                this.propagator.dispatchEvent(new Event('name'));
+            }
+
+            /** @type {boolean} */
+            #disabled = false;
+
+            get disabled() {
+                return this.#disabled;
+            }
+
+            set disabled(nv) {
+                this.#disabled = nv;
+                this.propagator.dispatchEvent(new Event('disabled'));
+            }
+
+            constructor() {
+                super();
+                this.#internals = this.attachInternals();
+                this.reflector.hostPropagator = this.propagator;
+            }
+        }
+
+        customElements.assignFeatures(MyElement, {
+            reflector: { spawn: Reflector }
+        });
+
+        customElements.define('my-element', MyElement);
+    </script>
+</head>
+<body>
+    <my-element></my-element>
+</body>
+</html>

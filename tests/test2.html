@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Reflector String and Number Conditions</title>
+    <!-- #include virtual="/imports.html" -->
+    <style>
+        alert-component {
+            --custom-state-exports: 
+                alertTypeIndicatesSuccess if alertType==success, 
+                alertTypeIndicatesFailure if alertType==failure
+            ;
+        }
+
+        counter-component {
+            --custom-state-exports: 
+                ticksInSecondQuarter if ticks % 4 == 1, 
+                ticksInFourthQuarter if ticks % 4 == 3,
+                ticksLessThan20 if ticks < 20,
+                ticksGreaterThanOrEqualTo30 if ticks >= 30
+            ;
+        }
+    </style>
+    <script type=module>
+        import 'assign-gingerly/assignFeatures.js';
+        import {Reflector} from 'be-reflective/Reflector.js';
+
+        class AlertComponent extends HTMLElement {
+            propagator = new EventTarget();
+            #internals;
+
+            static supportedFeatures = {
+                reflector: {
+                    fallbackSpawn: Reflector,
+                    getSharedContext(instance) {
+                        return { internals: instance.#internals };
+                    }
+                }
+            };
+
+            /** @type {string} */
+            #alertType = '';
+
+            get alertType() {
+                return this.#alertType;
+            }
+
+            set alertType(nv) {
+                this.#alertType = nv;
+                this.propagator.dispatchEvent(new Event('alertType'));
+            }
+
+            constructor() {
+                super();
+                this.#internals = this.attachInternals();
+                this.reflector.hostPropagator = this.propagator;
+            }
+        }
+
+        customElements.assignFeatures(AlertComponent, {
+            reflector: { spawn: Reflector }
+        });
+
+        customElements.define('alert-component', AlertComponent);
+
+        class CounterComponent extends HTMLElement {
+            propagator = new EventTarget();
+            #internals;
+
+            static supportedFeatures = {
+                reflector: {
+                    fallbackSpawn: Reflector,
+                    getSharedContext(instance) {
+                        return { internals: instance.#internals };
+                    }
+                }
+            };
+
+            /** @type {number} */
+            #ticks = 0;
+
+            get ticks() {
+                return this.#ticks;
+            }
+
+            set ticks(nv) {
+                this.#ticks = nv;
+                this.propagator.dispatchEvent(new Event('ticks'));
+            }
+
+            constructor() {
+                super();
+                this.#internals = this.attachInternals();
+                this.reflector.hostPropagator = this.propagator;
+            }
+        }
+
+        customElements.assignFeatures(CounterComponent, {
+            reflector: { spawn: Reflector }
+        });
+
+        customElements.define('counter-component', CounterComponent);
+    </script>
+</head>
+<body>
+    <alert-component></alert-component>
+    <counter-component></counter-component>
+</body>
+</html>
