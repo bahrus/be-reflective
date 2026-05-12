@@ -161,7 +161,7 @@ For booleans, just specify each one individually:
 
 Bonus benefit:  This makes it really easy for another developer to "discover" what custom states are applicable, something that appears to be lacking with the current browser developer tools.
 
-### Strings [WIP]
+### Strings
 For strings, we can specify a mapping:
 
 
@@ -177,7 +177,7 @@ For strings, we can specify a mapping:
 </style>
 ```
 
-We can also specify wildcard matching [TODO]:
+We can also specify wildcard matching:
 
 ```html
 <style>
