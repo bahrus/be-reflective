@@ -3,7 +3,11 @@
   "version": "0.0.2",
   "description": "Custom element feature for reflecting properties to custom states via CSS declarations",
   "type": "module",
-  "main": "Reflector.js",
+  "main": "ReflectorLazy.js",
+  "exports": {
+    "./Reflector.js": "./Reflector.js",
+    "./ReflectorLazy.js": "./ReflectorLazy.js"
+  },
   "scripts": {
     "serve": "node ./node_modules/spa-ssi/serve.js",
     "test": "playwright test",
