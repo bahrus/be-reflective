@@ -162,6 +162,7 @@ For booleans, just specify each one individually:
 Bonus benefit:  This makes it really easy for another developer to "discover" what custom states are applicable, something that appears to be lacking with the current browser developer tools.
 
 ### Strings
+
 For strings, we can specify a mapping:
 
 
