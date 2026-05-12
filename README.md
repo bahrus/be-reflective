@@ -247,5 +247,3 @@ import 'be-reflective/be-reflective.js';
 </script>
 ```
 
-git rm --cached types 2>nul
-git submodule add https://github.com/bahrus/types.git types
