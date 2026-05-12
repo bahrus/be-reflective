@@ -1,6 +1,6 @@
 # be-reflective
 
-This package contains the world's second custom element feature (following closely on the related https://github.com/bahrus/truth-sourcer which provides a pluggable feature for synchronizing attributes with properties in a kind of two-binding mechanism).
+This package contains the world's second custom element feature (following closely on the related https://github.com/bahrus/truth-sourcer which provides a pluggable feature for synchronizing attributes with properties in a kind of two-way binding mechanism).
 
 This feature provides a pluggable way of reflecting properties.
 
