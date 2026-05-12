@@ -16,7 +16,7 @@ Both approaches are shown below. Pick whichever fits your priorities.
 ### Synchronous (immediate reflection)
 
 ```JavaScript
-import 'assign-gingerly/object-extension.js';
+import 'assign-gingerly/assignFeatures.js';
 import {Reflector} from 'be-reflective/Reflector.js';
 
 class MyElement extends HTMLElement {
