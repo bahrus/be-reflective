@@ -1,6 +1,6 @@
 {
   "name": "be-reflective",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Custom element feature for reflecting properties to custom states via CSS declarations",
   "type": "module",
   "main": "Reflector.js",
@@ -22,6 +22,5 @@
     "@playwright/test": "1.60.0",
     "spa-ssi": "0.0.27"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
