@@ -7,7 +7,7 @@ This feature provides a pluggable way of reflecting properties.
 ## Using this feature
 
 ```JavaScript
-import 'assign-gingerly/object-extension.js';
+import 'assign-gingerly/assignFeatures.js';
 
 class MyElement extends HTMLElement {
     /**
