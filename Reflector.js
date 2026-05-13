@@ -9,7 +9,10 @@
  * property change events on the host's propagator EventTarget, toggling custom
  * states on the host's ElementInternals accordingly.
  * 
- * @implements {ReflectorProps}
+ * Activation is driven by `callbackForwarding: ['connectedCallback', 'disconnectedCallback']`
+ * in the assignFeatures config. The feature self-connects on construction (first
+ * connectedCallback triggers the lazy getter spawn), and reconnects on subsequent
+ * connectedCallbacks after disconnection.
  */
 class Reflector {
     /** @type {WeakRef<HTMLElement> | undefined} */
@@ -18,14 +21,17 @@ class Reflector {
     /** @type {ElementInternals | null} */
     #internals = null;
 
+    /** @type {EventTarget | null} */
+    #hostPropagator = null;
+
     /** @type {CustomStateRule[]} */
     #rules = [];
 
     /** @type {AbortController | null} */
     #abortController = null;
 
-    /** @type {EventTarget | null} */
-    #hostPropagator = null;
+    /** @type {boolean} */
+    #hasDisconnected = false;
 
     /**
      * @param {HTMLElement} hostElement
@@ -34,12 +40,16 @@ class Reflector {
      */
     constructor(hostElement, ctx, initVals) {
         this.#hostRef = new WeakRef(hostElement);
-        if (ctx.shared?.internals) {
-            this.#internals = ctx.shared.internals;
+        const shared = ctx.shared;
+        if (shared) {
+            this.#internals = shared.internals ?? null;
+            this.#hostPropagator = shared.hostPropagator ?? null;
         }
         if (initVals) {
             Object.assign(this, initVals);
         }
+        // Self-connect on construction since we're spawned during connectedCallback
+        this.#connect();
     }
 
     get hostPropagator() {
@@ -53,6 +63,30 @@ class Reflector {
         this.#hostPropagator = nv;
         if (nv) {
             this.#connect();
+        }
+    }
+
+    /**
+     * Called by callbackForwarding when the host element is reconnected to the DOM.
+     * Only re-connects if we've previously disconnected (avoids double-connect on
+     * initial spawn since the constructor already connects).
+     */
+    connectedCallback() {
+        if (this.#hasDisconnected) {
+            this.#hasDisconnected = false;
+            this.#connect();
+        }
+    }
+
+    /**
+     * Called by callbackForwarding when the host element is disconnected from the DOM.
+     * Aborts all event listeners to clean up.
+     */
+    disconnectedCallback() {
+        this.#hasDisconnected = true;
+        if (this.#abortController) {
+            this.#abortController.abort();
+            this.#abortController = null;
         }
     }
 

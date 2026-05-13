@@ -32,12 +32,14 @@ class MyElement extends HTMLElement {
 
     #internals;
 
-
     static supportedFeatures = {
         reflector: {
             fallbackSpawn: Reflector,
             getSharedContext(instance) {
-                return { internals: instance.#internals };
+                return {
+                    internals: instance.#internals,
+                    hostPropagator: instance.propagator
+                };
             }
         }
     };
@@ -71,14 +73,14 @@ class MyElement extends HTMLElement {
     constructor(){
         super();
         this.#internals = this.attachInternals();
-        this.reflector.hostPropagator = this.propagator;
     }
-
-
 }
 
 customElements.assignFeatures(MyElement, {
-    reflector: { spawn: Reflector }
+    reflector: {
+        spawn: Reflector,
+        callbackForwarding: ['connectedCallback', 'disconnectedCallback']
+    }
 });
 
 customElements.define('my-element', MyElement);
@@ -99,12 +101,14 @@ class MyElement extends HTMLElement {
 
     #internals;
 
-
     static supportedFeatures = {
         reflector: {
             fallbackSpawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy,
             getSharedContext(instance) {
-                return { internals: instance.#internals };
+                return {
+                    internals: instance.#internals,
+                    hostPropagator: instance.propagator
+                };
             }
         }
     };
@@ -138,14 +142,14 @@ class MyElement extends HTMLElement {
     constructor(){
         super();
         this.#internals = this.attachInternals();
-        this.reflector.hostPropagator = this.propagator;
     }
-
-
 }
 
 customElements.assignFeatures(MyElement, {
-    reflector: { spawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy }
+    reflector: {
+        spawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy,
+        callbackForwarding: ['connectedCallback', 'disconnectedCallback']
+    }
 });
 
 customElements.define('my-element', MyElement);

@@ -34,7 +34,10 @@
                 reflector: {
                     fallbackSpawn: Reflector,
                     getSharedContext(instance) {
-                        return { internals: instance.#internals };
+                        return {
+                            internals: instance.#internals,
+                            hostPropagator: instance.propagator
+                        };
                     }
                 }
             };
@@ -54,12 +57,14 @@
             constructor() {
                 super();
                 this.#internals = this.attachInternals();
-                this.reflector.hostPropagator = this.propagator;
             }
         }
 
         customElements.assignFeatures(AlertComponent, {
-            reflector: { spawn: Reflector }
+            reflector: {
+                spawn: Reflector,
+                callbackForwarding: ['connectedCallback', 'disconnectedCallback']
+            }
         });
 
         customElements.define('alert-component', AlertComponent);
@@ -72,7 +77,10 @@
                 reflector: {
                     fallbackSpawn: Reflector,
                     getSharedContext(instance) {
-                        return { internals: instance.#internals };
+                        return {
+                            internals: instance.#internals,
+                            hostPropagator: instance.propagator
+                        };
                     }
                 }
             };
@@ -92,12 +100,14 @@
             constructor() {
                 super();
                 this.#internals = this.attachInternals();
-                this.reflector.hostPropagator = this.propagator;
             }
         }
 
         customElements.assignFeatures(CounterComponent, {
-            reflector: { spawn: Reflector }
+            reflector: {
+                spawn: Reflector,
+                callbackForwarding: ['connectedCallback', 'disconnectedCallback']
+            }
         });
 
         customElements.define('counter-component', CounterComponent);
