@@ -25,6 +25,7 @@
             static supportedFeatures = {
                 reflector: {
                     fallbackSpawn: Reflector,
+                    callbackForwarding: ['connectedCallback', 'disconnectedCallback'],
                     getSharedContext(instance) {
                         return {
                             internals: instance.#internals,
@@ -65,10 +66,7 @@
         }
 
         customElements.assignFeatures(MyElement, {
-            reflector: {
-                spawn: Reflector,
-                callbackForwarding: ['connectedCallback', 'disconnectedCallback']
-            }
+            reflector: { spawn: Reflector }
         });
 
         customElements.define('my-element', MyElement);

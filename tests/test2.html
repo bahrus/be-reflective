@@ -33,6 +33,7 @@
             static supportedFeatures = {
                 reflector: {
                     fallbackSpawn: Reflector,
+                    callbackForwarding: ['connectedCallback', 'disconnectedCallback'],
                     getSharedContext(instance) {
                         return {
                             internals: instance.#internals,
@@ -61,10 +62,7 @@
         }
 
         customElements.assignFeatures(AlertComponent, {
-            reflector: {
-                spawn: Reflector,
-                callbackForwarding: ['connectedCallback', 'disconnectedCallback']
-            }
+            reflector: { spawn: Reflector }
         });
 
         customElements.define('alert-component', AlertComponent);
@@ -76,6 +74,7 @@
             static supportedFeatures = {
                 reflector: {
                     fallbackSpawn: Reflector,
+                    callbackForwarding: ['connectedCallback', 'disconnectedCallback'],
                     getSharedContext(instance) {
                         return {
                             internals: instance.#internals,
@@ -104,10 +103,7 @@
         }
 
         customElements.assignFeatures(CounterComponent, {
-            reflector: {
-                spawn: Reflector,
-                callbackForwarding: ['connectedCallback', 'disconnectedCallback']
-            }
+            reflector: { spawn: Reflector }
         });
 
         customElements.define('counter-component', CounterComponent);

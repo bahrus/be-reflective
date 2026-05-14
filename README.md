@@ -35,6 +35,7 @@ class MyElement extends HTMLElement {
     static supportedFeatures = {
         reflector: {
             fallbackSpawn: Reflector,
+            callbackForwarding: ['connectedCallback', 'disconnectedCallback'],
             getSharedContext(instance) {
                 return {
                     internals: instance.#internals,
@@ -77,10 +78,7 @@ class MyElement extends HTMLElement {
 }
 
 customElements.assignFeatures(MyElement, {
-    reflector: {
-        spawn: Reflector,
-        callbackForwarding: ['connectedCallback', 'disconnectedCallback']
-    }
+    reflector: { spawn: Reflector }
 });
 
 customElements.define('my-element', MyElement);
@@ -104,6 +102,7 @@ class MyElement extends HTMLElement {
     static supportedFeatures = {
         reflector: {
             fallbackSpawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy,
+            callbackForwarding: ['connectedCallback', 'disconnectedCallback'],
             getSharedContext(instance) {
                 return {
                     internals: instance.#internals,
@@ -146,10 +145,7 @@ class MyElement extends HTMLElement {
 }
 
 customElements.assignFeatures(MyElement, {
-    reflector: {
-        spawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy,
-        callbackForwarding: ['connectedCallback', 'disconnectedCallback']
-    }
+    reflector: { spawn: async () => (await import('be-reflective/ReflectorLazy.js')).ReflectorLazy }
 });
 
 customElements.define('my-element', MyElement);
