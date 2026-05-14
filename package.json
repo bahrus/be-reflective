@@ -22,7 +22,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "assign-gingerly": "0.0.40",
+    "assign-gingerly": "0.0.41",
     "@playwright/test": "1.60.0",
     "spa-ssi": "0.0.27"
   },
