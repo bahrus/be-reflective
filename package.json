@@ -19,11 +19,11 @@
     "type": "git",
     "url": "git+https://github.com/bahrus/be-reflective.git"
   },
-  "author": "",
+  "author": "Bruce B. Anderson <anderson.bruce.b@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "assign-gingerly": "0.0.41",
-    "@playwright/test": "1.60.0",
+    "assign-gingerly": "0.0.54",
+    "@playwright/test": "1.61.1",
     "spa-ssi": "0.0.27"
   },
   "dependencies": {}
