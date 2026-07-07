@@ -1,6 +1,6 @@
 {
   "name": "be-reflective",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Custom element feature for reflecting properties to custom states via CSS declarations",
   "type": "module",
   "main": "ReflectorLazy.js",
