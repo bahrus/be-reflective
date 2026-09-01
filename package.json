@@ -22,7 +22,7 @@
   "author": "Bruce B. Anderson <anderson.bruce.b@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "assign-gingerly": "0.0.71",
+    "assign-gingerly": "0.0.91",
     "@playwright/test": "1.62.1",
     "spa-ssi": "0.0.27"
   },
